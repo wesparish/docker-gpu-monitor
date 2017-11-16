@@ -14,7 +14,9 @@ RUN curl -OJL https://pypi.python.org/packages/4e/11/c17454160e80a60587adcb511b7
     cd / && \
     rm -rf PySensors-0.0.3
 
-ENV ES_HOSTS="elasticsearch:9200"
+ENV ES_HOSTS="172.16.1.17:9200" \
+    LOG_LEVEL="WARN" \
+    SLEEP_TIME=60
 
 COPY get-gpu-sensors.py /get-gpu-sensors.py
 RUN chown root:root /get-gpu-sensors.py

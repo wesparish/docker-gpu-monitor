@@ -36,7 +36,7 @@ if __name__ == '__main__':
         chip_dict = {}
         chip_dict['name'] = str(chip)
         chip_dict['date'] = datetime.now()
-        chip_dict['hostname'] = socket.gethostname()
+        chip_dict['hostname'] = os.environ.get("HOSTNAME", socket.gethostname())
         for feature in chip:
           chip_dict[feature.label] = feature.get_value()
         logging.info("chip_dict: %s" % (chip_dict))
