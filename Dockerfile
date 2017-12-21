@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM wesparish/nvidia:384.90
 
 RUN apt-get update && \
     apt-get install python python-pip lm-sensors vim curl -y && \
