@@ -31,7 +31,7 @@ if __name__ == '__main__':
   while True:
     # Probe any available AMD cards
     try:
-      curr_index = 'gpu-sensors-%s' % (datetime.now().strftime('%Y%m%d'))
+      curr_index = 'gpu-sensors-%s' % (datetime.now().strftime('%Y.%m.%d'))
       logging.info("curr_index: %s" % (curr_index))
       sensors.init()
       for chip in sensors.iter_detected_chips("amdgpu-*"):
@@ -52,7 +52,7 @@ if __name__ == '__main__':
 
     # Probe any available Nvidia cards
     try:
-      curr_index = 'gpu-sensors-%s' % (datetime.now().strftime('%Y%m%d'))
+      curr_index = 'gpu-sensors-%s' % (datetime.now().strftime('%Y.%m.%d'))
       logging.info("curr_index: %s" % (curr_index))
       nvmlInit()
       deviceCount = nvmlDeviceGetCount()
