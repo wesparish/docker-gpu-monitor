@@ -63,8 +63,8 @@ if __name__ == '__main__':
         chip_dict['name'] = "%s %s" % (nvmlDeviceGetName(handle),
                                        nvmlDeviceGetPciInfo(handle).busId)
         chip_dict['date'] = datetime.now()
-        chip_dict['fan1'] = str(nvmlDeviceGetFanSpeed(handle))
-        chip_dict['temp1'] = str(nvmlDeviceGetTemperature(handle, NVML_TEMPERATURE_GPU))
+        chip_dict['fan1'] = int(nvmlDeviceGetFanSpeed(handle))
+        chip_dict['temp1'] = int(nvmlDeviceGetTemperature(handle, NVML_TEMPERATURE_GPU))
         logging.info("chip_dict: %s" % (chip_dict))
         es.index(index=curr_index,
                  doc_type="gpu-sensors",
