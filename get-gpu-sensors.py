@@ -40,6 +40,7 @@ if __name__ == '__main__':
         chip_dict = {}
         chip_dict['name'] = str(chip)
         chip_dict['date'] = datetime.now()
+        chip_dict['@timestamp'] = chip_dict['date']
         chip_dict['location'] = location
         chip_dict['hostname'] = os.environ.get("HOSTNAME", socket.gethostname())
         for feature in chip:
@@ -66,6 +67,7 @@ if __name__ == '__main__':
         chip_dict['name'] = "%s %s" % (nvmlDeviceGetName(handle),
                                        nvmlDeviceGetPciInfo(handle).busId)
         chip_dict['date'] = datetime.now()
+        chip_dict['@timestamp'] = chip_dict['date']
         chip_dict['location'] = location
         chip_dict['fan1'] = int(nvmlDeviceGetFanSpeed(handle))
         chip_dict['temp1'] = int(nvmlDeviceGetTemperature(handle, NVML_TEMPERATURE_GPU))
