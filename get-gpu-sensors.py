@@ -27,17 +27,20 @@ if __name__ == '__main__':
   logging.basicConfig(stream=sys.stdout,
                       level=os.environ.get("LOG_LEVEL","WARN").upper())
 
+  location = os.environ.get("LOCATION", "")
+
   logging.warn("%s starting..." % (os.path.basename(__file__)))
   while True:
     # Probe any available AMD cards
     try:
-      curr_index = 'gpu-sensors-%s' % (datetime.now().strftime('%Y.%m.%d'))
+      curr_index = 'gpu-sensors-%s-%s' % (location, datetime.now().strftime('%Y.%m.%d'))
       logging.info("curr_index: %s" % (curr_index))
       sensors.init()
       for chip in sensors.iter_detected_chips("amdgpu-*"):
         chip_dict = {}
         chip_dict['name'] = str(chip)
         chip_dict['date'] = datetime.now()
+        chip_dict['location'] = location
         chip_dict['hostname'] = os.environ.get("HOSTNAME", socket.gethostname())
         for feature in chip:
           chip_dict[feature.label] = feature.get_value()
@@ -52,7 +55,7 @@ if __name__ == '__main__':
 
     # Probe any available Nvidia cards
     try:
-      curr_index = 'gpu-sensors-%s' % (datetime.now().strftime('%Y.%m.%d'))
+      curr_index = 'gpu-sensors-%s-%s' % (location, datetime.now().strftime('%Y.%m.%d'))
       logging.info("curr_index: %s" % (curr_index))
       nvmlInit()
       deviceCount = nvmlDeviceGetCount()
@@ -63,6 +66,7 @@ if __name__ == '__main__':
         chip_dict['name'] = "%s %s" % (nvmlDeviceGetName(handle),
                                        nvmlDeviceGetPciInfo(handle).busId)
         chip_dict['date'] = datetime.now()
+        chip_dict['location'] = location
         chip_dict['fan1'] = int(nvmlDeviceGetFanSpeed(handle))
         chip_dict['temp1'] = int(nvmlDeviceGetTemperature(handle, NVML_TEMPERATURE_GPU))
         logging.info("chip_dict: %s" % (chip_dict))

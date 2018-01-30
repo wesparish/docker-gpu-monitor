@@ -1,9 +1,7 @@
 FROM wesparish/nvidia:384.90
 
 RUN apt-get update && \
-    apt-get install python python-pip lm-sensors vim curl -y && \
-    pip install elasticsearch5 && \
-    apt-get remove python-pip -y && \
+    apt-get install python python-elasticsearch lm-sensors vim curl -y && \
     apt-get autoremove -y && \
     apt-get clean
 
