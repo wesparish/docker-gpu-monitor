@@ -1,7 +1,8 @@
-FROM wesparish/nvidia:384.90
+#FROM wesparish/nvidia:384.90
+FROM wesparish/nvidia:384.90-ubuntu1604
 
 RUN apt-get update && \
-    apt-get install python python-elasticsearch lm-sensors vim curl -y && \
+    apt-get install python python-pip lm-sensors vim curl -y && \
     apt-get autoremove -y && \
     apt-get clean
 
@@ -11,6 +12,8 @@ RUN curl -OJL https://pypi.python.org/packages/4e/11/c17454160e80a60587adcb511b7
     python setup.py install && \
     cd / && \
     rm -rf PySensors-0.0.3
+
+RUN pip install 'elasticsearch>=6.0.0'
 
 ENV ES_HOSTS="elasticsearch.weshouse:9200" \
     LOG_LEVEL="WARN" \
